@@ -74,6 +74,9 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             caption = None
             if msg.caption is not None:
                 caption = clean_caption(msg.caption)
+                caption += '\nHelped by @Roy_Jaat'
+            else:
+                caption = 'Helped by @Roy_Jaat'
             if msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
