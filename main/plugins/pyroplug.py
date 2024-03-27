@@ -14,6 +14,11 @@ from ethon.telefunc import fast_upload
 from telethon.tl.types import DocumentAttributeVideo
 from telethon import events
 
+def clean_caption(caption):
+    caption = re.sub(r'http\S+', '', caption)
+    caption = re.sub(r'@\w+', '', caption)
+    return caption.strip()
+
 def thumbnail(sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
@@ -68,7 +73,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             await edit.edit('Preparing to Upload!')
             caption = None
             if msg.caption is not None:
-                caption = msg.caption
+                caption = clean_caption(msg.caption)
             if msg.media==MessageMediaType.VIDEO_NOTE:
                 round_message = True
                 print("Trying to get metadata")
